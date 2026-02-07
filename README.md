@@ -19,5 +19,3 @@ It detects unauthorised file modifications, additions, and deletions by using cr
 - Linux Filesystem APIs
 - OpenSSL SHA-256 hashing
 - Cron Scheduler
-
-## Project Structure
