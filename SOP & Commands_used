@@ -1,0 +1,61 @@
+first you'll need to upate using
+
+"sudo apt uptade"
+
+then Install some Dependencies using 
+
+"sudo apt install build-essential openssl libssl-dev"
+
+this installs the required development libraries so the program can compile and use OpenSSL hashing 
+
+after this you need Create project directory 
+
+"mkdir file_integrity"
+
+and then create a source file 
+
+"nano monitor.cpp"
+
+then after writing the code for monitor.cpp (provided)
+
+compile the program 
+
+"g++ monitor.cpp -std=c++17 -lssl -lcrypto -o monitor" this command compiles your program and creates an executable file
+
+#g++ → C++ compiler
+#monitor.cpp → your source code file
+#-std=c++17 → compiles using C++17 standard
+#-lssl -lcrypto → links OpenSSL libraries required for SHA-256 hashing
+#-o monitor → names the output executable monitor
+
+Then create a monitored directory eg testdir so,
+"mkdir testdir" 
+"echo hello > testdir/a.txt" implies we made some changes in the test directory
+
+now run the executable file created earlier in this case namer monitor 
+
+this creates initial hash database named : hashes.txt :
+
+now lets make changes in the test directory so program can dtetect and report them 
+"echo changed >> testdir/a.txt" 
+now run the executable 
+"./monitor"
+
+this will create a text file named : security_log.txt :
+this file will note down the changes in the directory like when and at what time the modifications were made
+
+NOW, this is optional: 
+if we want we can Schedule execution of the monitor file every hour we can use cron tab
+"crontab -e" 
+and add the line: 
+"0 * * * * /<file address>/<username>/<directory name>/<exe filename>"
+in this case: " 0 * * * * /home/admin_user/file_integrity/monitor"
+
+# 0 → run at minute 0
+# * → every hour
+# * → every day
+# * → every month
+# * → every day of week
+
+Hence, Linux automatically run the executable files modifying security_log.txt if any changes made 
+
